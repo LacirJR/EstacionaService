@@ -31,13 +31,9 @@ namespace EstacionaService.Service
             return sql.ListarClientes(_sql);
         }
 
-        public Models.ClienteModel FechamentoCliente(String placa)
+        public Models.ClienteModel FechamentoCliente(string placa)
         {
             var sql = new ClientesData();
-
-
-            RegrasDeNegocio.Calculos calc = new RegrasDeNegocio.Calculos();
-
             var clienteFechamento = sql.SelecionarCliente(placa, _sql);
             clienteFechamento.Saida = DateTime.Now;
 
@@ -45,14 +41,23 @@ namespace EstacionaService.Service
                 throw new Exception("Cliente não disponivel para esta operação");
 
 
-            TimeSpan tempoGasto = calc.TempoGasto(clienteFechamento.Entrada, clienteFechamento.Saida);
-            clienteFechamento.TempoGasto = tempoGasto.TotalMinutes.ToString("N2") + " Minutos.";
-            clienteFechamento.ValorAPagar = Math.Round(calc.CalcularFechamento(tempoGasto, clienteFechamento.TipoVeiculo), 2);
+            TimeSpan tempoGasto = RegrasDeNegocio.Calculos.TempoGasto(clienteFechamento.Entrada, clienteFechamento.Saida);
+            clienteFechamento.TempoGasto = tempoGasto.TotalMinutes.ToString("N2") + " Minutos";
+            clienteFechamento.ValorAPagar = Math.Round(RegrasDeNegocio.Calculos.CalcularFechamento(tempoGasto, clienteFechamento.TipoVeiculo), 2);
 
             sql.InserirPagamento(clienteFechamento, _sql);
 
             return clienteFechamento;
 
+        }
+
+        public string Pagamento(decimal valorPago, decimal valorAReceber, string placa)
+        {
+            var sql = new ClientesData();
+            var troco = RegrasDeNegocio.Calculos.Troco(valorAReceber, valorPago).ToString("N2");
+            sql.AlterarSituacaoPagamento(true, placa, _sql);
+
+            return troco;
         }
 
     }

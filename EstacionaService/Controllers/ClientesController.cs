@@ -75,5 +75,19 @@ namespace EstacionaService.Controllers
                 return StatusCode(500, "Erro ao realizar o fechamento: " + EX.Message);
             }
         }
+
+        [HttpPut("api/Pagamento")]
+        public IActionResult Pagamento(decimal valorPago, decimal valorAReceber, string placa)
+        {
+            try
+            {
+                var pagamento = _service.Pagamento(valorPago, valorAReceber,placa);
+                return StatusCode(200, pagamento);
+            }
+            catch (Exception EX)
+            {
+                return StatusCode(500, "Erro ao realizar o pagamento: " + EX.Message);
+            }
+        }
     }
 }
