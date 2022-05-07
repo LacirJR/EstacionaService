@@ -11,7 +11,7 @@ namespace EstacionaService.Models
         public string CPF { get; set; }
         public string TipoVeiculo { get; set; }
         public string Nome { get; set; }
-        public string? TempoGasto { get; set; }
+        public string TempoGasto { get; set; }
         public DateTime Entrada { get; set; }
         public DateTime Saida { get; set; }
         public bool Situacao { get; set; }
