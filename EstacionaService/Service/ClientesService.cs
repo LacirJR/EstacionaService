@@ -31,10 +31,10 @@ namespace EstacionaService.Service
             return sql.ListarClientes(_sql);
         }
 
-        public Models.ClienteModel FechamentoCliente(string placa)
+        public Models.ClienteModel FechamentoCliente(string id)
         {
             var sql = new ClientesData();
-            var clienteFechamento = sql.SelecionarCliente(placa, _sql);
+            var clienteFechamento = sql.SelecionarCliente(id, _sql);
             clienteFechamento.Saida = DateTime.Now;
 
             if (clienteFechamento.Situacao == false)

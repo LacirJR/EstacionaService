@@ -12,15 +12,24 @@ namespace EstacionaService.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private Service.ClientesService _service;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _service = new Service.ClientesService();
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult ListarClientesAtivos()
+        {
+            var clientes = _service.ListarClientes();
+
+            return StatusCode(200, clientes);
         }
 
         public IActionResult Privacy()

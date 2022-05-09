@@ -1,84 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
 }
-<h4 class="center">Veículos ativos no estacionamento</h4>
+<form id="entradaVeiculos">
+    <div class="row" style="display: flex;">
+        <div class="col-2">
+
+            <input class="form-control" type="text" id="placaEntradaPatio" placeholder="Placa veículo">
+        </div>
+        <div class="col-3">
+
+            <input class="form-control" list="datalistOptions" id="tipoEntradaPatio" placeholder="Digite o tipo">
+            <datalist id="datalistOptions">
+                <option value="1 - Moto"></option>
+                <option value="2 - Carro"></option>
+                <option value="3 - Caminhão"></option>
+                <option value="4 - Bicicleta"></option>
+            </datalist>
+        </div>
+        <div class="col-4">
+
+            <input class="form-control" type="text" id="descricaoEntradaPatio" placeholder="Descrição">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Entrar com Veiculo</button>
+        </div>
+    </div>
+</form>
+<h4 class="center">Veículos ativos no pátio</h4>
 <div class="row" style="display: flex; flex-wrap: wrap; justify-content:flex-start">
-
-    <div class="card border-primary" style="width: 20rem; margin-right: 0.5vw;">
-        <div class="card-body">
-            <h5 class="card-title">Nome do Cliente</h5>
-            <p class="card-text">Tipo do veículo: MOTO</p>
-            <p class="card-text">Placa do veículo: <b>HEJ0225</b></p>
-            <a href="#" class="btn btn-primary "> Fechar Conta</a>
-        </div>
-        <div class="card-footer">
-            <small>Tempo no estacionamento: <b><span id="countdown" style="display:inline-block"> </span></b> </small>
-        </div>
-    </div>
-
-    <div class="card border-primary" style="width: 20rem; margin-right: 0.5vw; ">
-        <div class="card-body">
-            <h5 class="card-title">Nome do Cliente</h5>
-            <p class="card-text">Tipo do veículo: MOTO</p>
-            <p class="card-text">Placa do veículo: <b>HEJ0225</b></p>
-            <a href="#" class="btn btn-primary "> Fechar Conta</a>
-        </div>
-        <div class="card-footer">
-            <small>Tempo no estacionamento: <b><span id="countdown" style="display:inline-block"> </span></b> </small>
-        </div>
-    </div>
-    <div class="card border-primary" style="width: 20rem; margin-right: 0.5vw;">
-        <div class="card-body">
-            <h5 class="card-title">Nome do Cliente</h5>
-            <p class="card-text">Tipo do veículo: MOTO</p>
-            <p class="card-text">Placa do veículo: <b>HEJ0225</b></p>
-            <a href="#" class="btn btn-primary "> Fechar Conta</a>
-        </div>
-        <div class="card-footer">
-            <small>Tempo no estacionamento: <b><span id="countdown" style="display:inline-block"> </span></b> </small>
-        </div>
-    </div>
-
-    <div class="card border-primary" style="width: 20rem; margin-right: 0.5vw;">
-        <div class="card-body">
-            <h5 class="card-title">Nome do Cliente</h5>
-            <p class="card-text">Tipo do veículo: MOTO</p>
-            <p class="card-text">Placa do veículo: <b>HEJ0225</b></p>
-            <a href="#" class="btn btn-primary "> Fechar Conta</a>
-        </div>
-        <div class="card-footer">
-            <small>Tempo no estacionamento: <b><span id="countdown" style="display:inline-block"> </span></b> </small>
-        </div>
-    </div>
-
-
-    <div class="card border-primary" style="width: 20rem; margin-right: 0.5vw;">
-        <div class="card-body">
-            <h5 class="card-title">Nome do Cliente</h5>
-            <p class="card-text">Tipo do veículo: MOTO</p>
-            <p class="card-text">Placa do veículo: <b>HEJ0225</b></p>
-            <a href="#" class="btn btn-primary "> Fechar Conta</a>
-        </div>
-        <div class="card-footer">
-            <small>Tempo no estacionamento: <b><span id="countdown" style="display:inline-block"> </span></b> </small>
-        </div>
-
-
-
-
-        <!-- End Col -->
+    <div id="cardCreator" class="card border-primary" style="width: 20rem; margin-right: 0.5vw; ">
     </div>
 </div>
 
 
 
+
 @section Scripts{
+    <script>
+
+      var urlListaClientes = '@Url.Action("ListarClientesAtivos", "Home")';
+    </script>
+
     <script type="text/javascript" src="/js/js-countdown/jquery.plugin.js"></script>
     <script type="text/javascript" src="js/js-countdown/jquery.countdown.js"></script>
+    <script type="text/javascript" src="/js/paginaPrincipal.js"></script>
 
-    <script>
-        var tempo = new Date('May 07, 2022 03:15:30')
-        $('#countdown').countdown({ since: tempo, compact: true, format: 'HMS' });
-    </script>
 
 }

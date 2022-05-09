@@ -48,7 +48,8 @@ namespace EstacionaService.Controllers
 
                 var lista = listaClientes.Select(x => new
                 {
-                    x.Nome,
+                    x.ID,
+                    x.Descricao,
                     x.Placa,
                     x.TipoVeiculo,
                     x.Entrada
@@ -62,12 +63,12 @@ namespace EstacionaService.Controllers
                 return StatusCode(500, "Erro ao realizar a busca");
             }
         }
-        [HttpPut("api/FecharValor/{placa}")]
-        public IActionResult FechamentoCliente(string placa)
+        [HttpPut("api/FecharValor/{id}")]
+        public IActionResult FechamentoCliente(string id)
         {
             try
             {
-                var clienteFechamento = _service.FechamentoCliente(placa);
+                var clienteFechamento = _service.FechamentoCliente(id);
                 return StatusCode(200, clienteFechamento);
             }
             catch (Exception EX)

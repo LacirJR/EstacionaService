@@ -17,26 +17,23 @@ namespace EstacionaService.Data
 
             _sql.Open();
 
-            string query = "INSERT INTO Clientes (Cpf," +
-                                                " Placa," +
-                                                " TipoVeiculo," +
-                                                " Nome," +
+            string query = "INSERT INTO Clientes (TipoVeiculo," +
+                                                " Descricao," +
                                                 " Entrada," +
+                                                " Placa" +
                                                 " Situacao)" +
 
-                                   "VALUES      (@Cpf," +
-                                               "  @Placa," +
-                                                " @TipoVeiculo," +
-                                                " @Nome," +
+                                   "VALUES     (@TipoVeiculo," +
+                                                " @Descricao," +
                                                 " @Entrada," +
+                                                " @Placa" +
                                                 " @Situacao)";
 
             using (SqlCommand cmd = new SqlCommand(query, _sql))
             {
-                cmd.Parameters.AddWithValue("Cpf", cliente.CPF);
+                cmd.Parameters.AddWithValue("Descricao", cliente.Descricao);
                 cmd.Parameters.AddWithValue("Placa", cliente.Placa.ToUpper());
                 cmd.Parameters.AddWithValue("TipoVeiculo", cliente.TipoVeiculo.ToUpper());
-                cmd.Parameters.AddWithValue("Nome", cliente.Nome.ToUpper());
                 cmd.Parameters.AddWithValue("Entrada", DateTime.Now);
                 cmd.Parameters.AddWithValue("Situacao", true);
 
@@ -52,7 +49,7 @@ namespace EstacionaService.Data
             var listaClientes = new List<Models.ClienteModel>();
             _sql.Open();
 
-            string query = "Select Nome, Placa, TipoVeiculo, Entrada  From Clientes Where Situacao = 1";
+            string query = "Select REPLICATE('0', 9 - LEN(ID)) + CAST(ID AS varchar) AS 'ID', Placa, Descricao, TipoVeiculo, Entrada  From Clientes Where Situacao = 1";
 
             using (var cmd = new SqlCommand(query, _sql))
             {
@@ -61,9 +58,10 @@ namespace EstacionaService.Data
                 while (rdr.Read())
                 {
                     var cliente = new Models.ClienteModel();
-                    cliente.Nome = Convert.ToString(rdr["Nome"]);
+                    cliente.ID = Convert.ToString(rdr["ID"]);
                     cliente.Placa = Convert.ToString(rdr["Placa"]);
                     cliente.TipoVeiculo = Convert.ToString(rdr["TipoVeiculo"]);
+                    cliente.Descricao = Convert.ToString(rdr["Descricao"]);
                     cliente.Entrada = Convert.ToDateTime(rdr["Entrada"]);
 
                     listaClientes.Add(cliente);
@@ -73,22 +71,22 @@ namespace EstacionaService.Data
             return listaClientes;
         }
 
-        public Models.ClienteModel SelecionarCliente(string placa, SqlConnection _sql)
+        public Models.ClienteModel SelecionarCliente(string id, SqlConnection _sql)
         {
             var cliente = new Models.ClienteModel();
             _sql.Open();
-            string query = "SELECT Nome, CPF, Placa, TipoVeiculo, Entrada, Saida, ValorAPagar, Situacao FROM Clientes WHERE Placa = @Placa " +
-                "Update Clientes SET Situacao = 0 Where Placa = @Placa";
+            string query = "SELECT ID, Descricao, Placa, TipoVeiculo, Entrada, Saida, ValorAPagar, Situacao FROM Clientes WHERE Placa = @Placa " +
+                "Update Clientes SET Situacao = 0 Where Placa = @id";
 
             using (var cmd = new SqlCommand(query, _sql))
             {
-                cmd.Parameters.AddWithValue("@Placa", placa);
+                cmd.Parameters.AddWithValue("@ID", id);
                 var rdr = cmd.ExecuteReader();
 
                 if (rdr.Read())
                 {
-                    cliente.Nome = Convert.ToString(rdr["Nome"]);
-                    cliente.CPF = Convert.ToString(rdr["CPF"]);
+                    cliente.ID = Convert.ToString(rdr["ID"]);
+                    cliente.Descricao = Convert.ToString(rdr["Descricao"]);
                     cliente.Placa = Convert.ToString(rdr["Placa"]);
                     cliente.TipoVeiculo = Convert.ToString(rdr["TipoVeiculo"]);
                     cliente.Entrada = Convert.ToDateTime(rdr["Entrada"]);
