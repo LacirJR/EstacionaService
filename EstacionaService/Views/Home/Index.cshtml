@@ -11,10 +11,9 @@
 
             <input class="form-control" list="datalistOptions" id="tipoEntradaPatio" placeholder="Digite o tipo">
             <datalist id="datalistOptions">
-                <option value="1 - Moto"></option>
-                <option value="2 - Carro"></option>
-                <option value="3 - Caminhão"></option>
-                <option value="4 - Bicicleta"></option>
+                <option value="Moto"></option>
+                <option value="Carro"></option>
+                <option value="Caminhão"></option>
             </datalist>
         </div>
         <div class="col-4">
@@ -26,24 +25,27 @@
         </div>
     </div>
 </form>
-<h4 class="center">Veículos ativos no pátio</h4>
-<div class="row" style="display: flex; flex-wrap: wrap; justify-content:flex-start">
-    <div id="cardCreator" class="card border-primary" style="width: 20rem; margin-right: 0.5vw; ">
-    </div>
+<div class="row mt-3">
+    <h4>Veículos ativos no pátio</h4>
+</div>
+
+<div class="row " id="cardContainer" style="display: flex; flex-wrap: wrap; justify-content:flex-start">
+
 </div>
 
 
 
 
 @section Scripts{
-    <script>
+<script>
 
-      var urlListaClientes = '@Url.Action("ListarClientesAtivos", "Home")';
-    </script>
+    var urlListaClientes = '@Url.Action("ListarClientesAtivos", "Home")';
+    var urlCadastrarVeiculo = '@Url.Action("InserirCliente","Home")';
+</script>
 
-    <script type="text/javascript" src="/js/js-countdown/jquery.plugin.js"></script>
-    <script type="text/javascript" src="js/js-countdown/jquery.countdown.js"></script>
-    <script type="text/javascript" src="/js/paginaPrincipal.js"></script>
+<script type="text/javascript" src="/js/js-countdown/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/js-countdown/jquery.countdown.js"></script>
+<script type="text/javascript" src="/js/paginaPrincipal.js"></script>
 
 
 }
