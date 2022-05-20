@@ -1,4 +1,5 @@
 ﻿using EstacionaService.Models;
+using EstacionaService.RegrasDeNegocio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,12 +33,28 @@ namespace EstacionaService.Controllers
       return StatusCode(200, clientes);
     }
 
-    [HttpPost("/inserirCliente/")]
+    [HttpPost]
     public IActionResult InserirCliente([FromBody] ClienteModel cliente)
     {
-      _service.InserirCliente(cliente);
+      try
+      {
+        Validacao.ValidarEntradaVeiculo(cliente);
+        _service.InserirCliente(cliente);
 
-      return StatusCode(200);
+        return StatusCode(200);
+      }
+      catch (InvalidOperationException ex)
+      {
+        return StatusCode(400, ex.Message);
+      }
+    }
+
+    [HttpPut("/")]
+    public IActionResult FechamentoCliente([FromBody] string id)
+    {
+      var clienteFechado = _service.FechamentoCliente(id);
+
+      return StatusCode(200, clienteFechado);
     }
 
     public IActionResult Privacy()

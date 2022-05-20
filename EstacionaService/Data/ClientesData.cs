@@ -31,7 +31,7 @@ namespace EstacionaService.Data
 
       using (SqlCommand cmd = new SqlCommand(query, _sql))
       {
-        cmd.Parameters.AddWithValue("Descricao", cliente.Descricao);
+        cmd.Parameters.AddWithValue("Descricao", cliente.Descricao.ToUpper());
         cmd.Parameters.AddWithValue("Placa", cliente.Placa.ToUpper());
         cmd.Parameters.AddWithValue("TipoVeiculo", cliente.TipoVeiculo.ToUpper());
         cmd.Parameters.AddWithValue("Entrada", DateTime.Now);
@@ -76,12 +76,12 @@ namespace EstacionaService.Data
     {
       var cliente = new Models.ClienteModel();
       _sql.Open();
-      string query = "SELECT ID, Descricao, Placa, TipoVeiculo, Entrada, Saida, ValorAPagar, Situacao FROM ClientesAtivosPatio WHERE ID = @id " +
-          "Update ClientesAtivosPatio SET Situacao = 0 Where ID = @id";
+      string query = "SELECT ID, Descricao, Placa, TipoVeiculo, Entrada, Saida, ValorAPagar, Situacao FROM ClientesAtivosPatio WHERE ID = @ID " +
+          "Update ClientesAtivosPatio SET Situacao = 0 Where ID = @ID";
 
       using (var cmd = new SqlCommand(query, _sql))
       {
-        cmd.Parameters.AddWithValue("@ID", id);
+        cmd.Parameters.AddWithValue("ID", id);
         var rdr = cmd.ExecuteReader();
 
         if (rdr.Read())
@@ -110,31 +110,29 @@ namespace EstacionaService.Data
                                           " Placa," +
                                           " TipoVeiculo," +
                                           " TempoGasto," +
-                                          " ValorPago," +
-                                          " DataHora," +
-                                          " Situacao)" +
+                                          " Valor," +
+                                          " DataPag)" +
 
                              "VALUES      (@ID," +
                                          "  @Placa," +
                                           " @TipoVeiculo," +
                                           " @TempoGasto," +
                                           " @Valor," +
-                                          " @DataHora," +
-                                          " @Situacao) ";
+                                          " @DataPag)";
 
-      query += " UPDATE Cliente SET Saida = @Saida, ValorAPagar = @ValorAPagar, TempoGasto = @TempoGasto Where ID = @id";
+      query += " UPDATE ClientesAtivosPatio SET Saida = @Saida, ValorAPagar = @ValorAPagar, TempoGasto = @TempoGasto, Situacao = 0 Where ID = @ID";
 
       using (SqlCommand cmd = new SqlCommand(query, _sql))
       {
-
+        cmd.Parameters.AddWithValue("ID", cliente.ID);
         cmd.Parameters.AddWithValue("Placa", cliente.Placa.ToUpper());
         cmd.Parameters.AddWithValue("TipoVeiculo", cliente.TipoVeiculo.ToUpper());
         cmd.Parameters.AddWithValue("TempoGasto", cliente.TempoGasto.ToUpper());
-        cmd.Parameters.AddWithValue("ValorPago", cliente.ValorAPagar);
+        cmd.Parameters.AddWithValue("Valor", cliente.ValorAPagar.ToString());
         cmd.Parameters.AddWithValue("Saida", cliente.Saida);
         cmd.Parameters.AddWithValue("ValorAPagar", cliente.ValorAPagar);
-        cmd.Parameters.AddWithValue("DataPagamento", DateTime.Now.ToString("d"));
-        cmd.Parameters.AddWithValue("Situacao", false);
+        cmd.Parameters.AddWithValue("DataPag", DateTime.Now.ToString("d"));
+
 
         cmd.ExecuteNonQuery();
       }
