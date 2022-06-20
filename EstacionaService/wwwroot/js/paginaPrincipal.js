@@ -76,14 +76,10 @@ function CriarTabela(obj) {
         var horas = dataEntrada.getHours();
         var minutos = dataEntrada.getMinutes();
 
-        if (dia.toString().length == 1)
-            dia = "0" + dia;
-        if (mes.toString().length == 1)
-            mes = "0" + mes;
-        if (horas.toString().length == 1)
-            horas = "0" + horas;
-        if (minutos.toString().length == 1)
-            minutos = "0" + minutos;
+        if (dia.toString().length == 1) dia = "0" + dia;
+        if (mes.toString().length == 1) mes = "0" + mes;
+        if (horas.toString().length == 1) horas = "0" + horas;
+        if (minutos.toString().length == 1) minutos = "0" + minutos;
 
         var dataCompleta = dia + '/' + mes + '/' + dataEntrada.getFullYear() + '  ' + horas + ':' + minutos;
 

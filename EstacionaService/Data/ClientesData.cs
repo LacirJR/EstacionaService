@@ -158,5 +158,77 @@ namespace EstacionaService.Data
 
 
     }
+
+    public void CadastrarMensalista(Models.MensalistaPFModel mensalista, SqlConnection _sql)
+    {
+      _sql.Open();
+
+      string query = "INSERT INTO MensalistaPF (CPF," +
+                                          " Nome," +
+                                          " Placa," +
+                                          " TipoVeiculo," +
+                                          " Descricao," +
+                                          " DataEntrada," +
+                                          " Plano," +
+                                          " Valor," +
+                                          " Situacao)" +
+
+                             "VALUES      (@CPF," +
+                                         "  @Nome," +
+                                          " @Placa," +
+                                          " @TipoVeiculo," +
+                                          " @Descricao," +
+                                          " @DataEntrada," +
+                                          " @Plano," +
+                                          " @Valor," +
+                                          " @Situacao)";
+
+      using (SqlCommand cmd = new SqlCommand(query, _sql))
+      {
+
+        cmd.Parameters.AddWithValue("CPF", mensalista.CPF);
+        cmd.Parameters.AddWithValue("Nome", mensalista.Nome);
+        cmd.Parameters.AddWithValue("Placa", mensalista.Placa);
+        cmd.Parameters.AddWithValue("TipoVeiculo", mensalista.TipoVeiculo);
+        cmd.Parameters.AddWithValue("Descricao", mensalista.Descricao);
+        cmd.Parameters.AddWithValue("DataEntrada", DateTime.Now);
+        cmd.Parameters.AddWithValue("Valor", mensalista.Valor);
+        cmd.Parameters.AddWithValue("Plano", mensalista.Plano);
+        cmd.Parameters.AddWithValue("Situacao", mensalista.Situacao);
+        cmd.ExecuteNonQuery();
+      }
+    }
+
+    public List<Models.MensalistaPFModel> ListarMensalistasPF(SqlConnection _sql)
+    {
+      var listaClientes = new List<Models.MensalistaPFModel>();
+      _sql.Open();
+
+      string query = "Select CPF, Nome, Placa, Descricao, TipoVeiculo, Valor, Plano, DataEntrada, Situacao  From MensalistaPF;";
+
+      using (var cmd = new SqlCommand(query, _sql))
+      {
+
+        var rdr = cmd.ExecuteReader();
+
+        while (rdr.Read())
+        {
+          var cliente = new Models.MensalistaPFModel();
+          cliente.CPF = Convert.ToString(rdr["CPF"]);
+          cliente.Nome = Convert.ToString(rdr["Nome"]);
+          cliente.Placa = Convert.ToString(rdr["Placa"]);
+          cliente.TipoVeiculo = Convert.ToString(rdr["TipoVeiculo"]);
+          cliente.Descricao = Convert.ToString(rdr["Descricao"]);
+          cliente.Plano = Convert.ToInt32(rdr["Plano"]);
+          cliente.Situacao = Convert.ToBoolean(rdr["Situacao"]);
+          cliente.Valor = Convert.ToDecimal(rdr["Valor"]);
+          cliente.DataEntrada = Convert.ToDateTime(rdr["DataEntrada"]);
+
+          listaClientes.Add(cliente);
+
+        }
+      }
+      return listaClientes;
+    }
   }
 }

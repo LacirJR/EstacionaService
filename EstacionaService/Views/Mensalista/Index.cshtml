@@ -1,0 +1,67 @@
+@{
+  ViewData["Title"] = "Dashboard - Mensalista";
+}
+
+
+<h1>Mensalistas Pessoa Física</h1>
+
+<div class="container-fluid">
+
+  <table id="mensalistas" class="table table-striped cell-border">
+    <thead>
+      <th class="col-md-2">CPF</th>
+      <th class="col-md-4">Nome</th>
+      <th class="cold-md-1">Placa</th>
+      <th class="col-md-1">TipoVeiculo</th>
+      <th class="col-md-2">Descricao</th>
+      <th class="col-md-1">Situacao</th>
+      <th class="col-md-1"></th>
+    </thead>
+  </table>
+
+</div>
+
+
+@section Scripts{
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.2.4/js/dataTables.fixedHeader.min.js"></script>
+
+
+<script>
+
+  $(document).ready(function () {
+    var table = $('#mensalistas').DataTable({
+      ajax: '@Url.Action("ListarMensalistasPF", "Mensalista")',
+      "columns": [
+        { "data": "cpf" },
+        { "data": "nome" },
+        { "data": "placa" },
+        { "data": "tipoVeiculo" },
+        { "data": "descricao" },
+        { "data": "situacao" },
+        { "data": "action" }
+      ],
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json"
+      },
+      responsive: {
+        details: {
+          type: 'column'
+        }
+      },
+      initComplete: function () {
+        document.getElementById("mensalistas_filter").children[0].children[0].classList.add('border')
+      }
+
+
+    });
+
+    new $.fn.dataTable.FixedHeader(table);
+
+
+  });
+
+
+</script>
+}

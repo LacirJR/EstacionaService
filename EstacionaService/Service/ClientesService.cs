@@ -12,6 +12,7 @@ namespace EstacionaService.Service
   public class ClientesService
   {
     private readonly SqlConnection _sql;
+
     public ClientesService()
     {
       string stringConexao = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionString")["StringConexao"];
@@ -23,6 +24,7 @@ namespace EstacionaService.Service
     {
       var sql = new ClientesData();
       sql.InserirCliente(cliente, _sql);
+
 
     }
 
@@ -40,7 +42,6 @@ namespace EstacionaService.Service
 
       if (clienteFechamento.Situacao == false)
         throw new Exception("Cliente não disponivel para esta operação");
-
 
       TimeSpan tempoGasto = RegrasDeNegocio.Calculos.TempoGasto(clienteFechamento.Entrada, clienteFechamento.Saida);
       clienteFechamento.TempoGasto = tempoGasto.TotalMinutes.ToString("N2") + " Minutos";
@@ -60,6 +61,8 @@ namespace EstacionaService.Service
 
       return troco;
     }
+
+
 
   }
 }
