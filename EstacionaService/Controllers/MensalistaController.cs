@@ -28,13 +28,13 @@ namespace EstacionaService.Controllers
     {
       var data = _service.ListarMensalistasPF().Select(x => new
       {
-        cpf = x.CPF,
-        nome = x.Nome,
-        placa = x.Placa,
-        tipoVeiculo = x.TipoVeiculo,
-        descricao = x.Descricao,
-        situacao = x.Situacao == false ? "Inativo" : "Ativo",
-        action = $"<button class=\"btn btn-warning\">Teste</button>"
+        cpf = "<p>" + x.CPF + "</p>",
+        nome = "<p>" + x.Nome + "</p>",
+        placa = "<p>" + x.Placa + "</p>",
+        tipoVeiculo = "<p>" + x.TipoVeiculo + "</p>",
+        descricao = "<p>" + x.Descricao + "</p>",
+        situacao = x.Situacao == false ? "<p>Inativo</p>" : "<p>Ativo</p>",
+        action = $"<a type=\"button\" class=\"btn btn-warning btn-sm\">Teste</a>"
       }).ToList();
 
       return StatusCode(200, new { data = data });

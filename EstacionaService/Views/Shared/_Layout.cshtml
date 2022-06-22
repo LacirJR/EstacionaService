@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>@ViewData["Title"] - EstacionaService</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="~/image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.4/css/fixedHeader.bootstrap.min.css">
+
+
+
 
 
 
@@ -37,12 +37,10 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo ">
-                <a href="index.html ">
+                <a href="/">
                     <p class="logo-abbr logotexto">ES </p>
                     <span class="logo-compact"></span>
-                    <p class="brand-title logotexto">
-                        ESTACIONA SERVICE
-                    </p>
+                    <p class="brand-title logotexto text-nowrap">EstacionaService</p>
                 </a>
             </div>
         </div>
@@ -78,10 +76,23 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./index.html">Home 1</a></li>
+                            <li><a href="/">Pátio</a></li>
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
                     </li>
+
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text ">Mensalistas</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/Mensalista/Index">Pessoa Física</a></li>
+                            <li><a href="/Mensalista/Index">Pessoa Jurídica</a></li>
+
+                        </ul>
+                    </li>
+
+
 
                     <li class="nav-label">Usuário</li>
                     <li>

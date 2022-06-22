@@ -15,11 +15,11 @@ function FecharCliente(id) {
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
         .then(response => response)
-        .then(json => console.log(json))
+        .then(json => ChamarTabela())
         .catch(err => console.log(err));
 
 
-    ChamarTabela();
+
 }
 
 
@@ -38,7 +38,7 @@ function CadastrarVeiculo() {
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
         .then(response => response)
-        .then(json => console.log(json))
+        .then(json => ChamarTabela())
         .catch(err => console.log(err));
 
     document.getElementById('placaEntradaPatio').value = "";
@@ -62,43 +62,46 @@ function ChamarTabela() {
 
 
 function CriarTabela(obj) {
-
     var texto = '';
+    if (obj.length == 0) {
+        texto = '<div class=" container-fluid d-flex justify-content-center align-content-center"><h1>Nenhum veículo ativo no pátio</h1></div>';
+    }
+    else {
+        Object.keys(obj).forEach(function (key) {
 
 
-    Object.keys(obj).forEach(function (key) {
+            var id = obj[key].id;
+            var dataEntrada = new Date(obj[key].entrada);
+            var dia = dataEntrada.getDate();
+            var mes = dataEntrada.getMonth();
+            var horas = dataEntrada.getHours();
+            var minutos = dataEntrada.getMinutes();
 
+            if (dia.toString().length == 1) dia = "0" + dia;
+            if (mes.toString().length == 1) mes = "0" + mes;
+            if (horas.toString().length == 1) horas = "0" + horas;
+            if (minutos.toString().length == 1) minutos = "0" + minutos;
 
-        var id = obj[key].id;
-        var dataEntrada = new Date(obj[key].entrada);
-        var dia = dataEntrada.getDate();
-        var mes = dataEntrada.getMonth();
-        var horas = dataEntrada.getHours();
-        var minutos = dataEntrada.getMinutes();
+            var dataCompleta = dia + '/' + mes + '/' + dataEntrada.getFullYear() + '  ' + horas + ':' + minutos;
 
-        if (dia.toString().length == 1) dia = "0" + dia;
-        if (mes.toString().length == 1) mes = "0" + mes;
-        if (horas.toString().length == 1) horas = "0" + horas;
-        if (minutos.toString().length == 1) minutos = "0" + minutos;
+            texto += '<div id="cardCreator" class="card border-primary" style="width: 19rem; margin-right: 0.5vw; ">';
+            texto += '<div class="card-header">ID: <b>' + id + '</b></div>'
+                + '<div class="card-body">'
+                + '<p class="card-text">Entrada: <b>' + dataCompleta + '</b></p>'
+                + '<p class="card-text">Placa do veículo: <b>' + obj[key].placa + '</b></p>'
+                + '<p class="card-text">Descrição: <b>' + obj[key].descricao + '</b></p>'
+                + '<button  class="btn btn-primary " onclick="FecharCliente(' + parseInt(id) + ')">Fechar Conta</button>'
+                + '</div>'
+                + ' <div class="card-footer">' +
+                '<small> Tempo no estacionamento: <b><span class="marcador countdown" style="display:inline-block"> ' + obj[key].entrada + '</span></b> </small >' +
+                '</div >';
+            texto += '</div>'
+        });
+    }
 
-        var dataCompleta = dia + '/' + mes + '/' + dataEntrada.getFullYear() + '  ' + horas + ':' + minutos;
-
-        texto += '<div id="cardCreator" class="card border-primary" style="width: 19rem; margin-right: 0.5vw; ">';
-        texto += '<div class="card-header">ID: <b>' + id + '</b></div>'
-            + '<div class="card-body">'
-            + '<p class="card-text">Entrada: <b>' + dataCompleta + '</b></p>'
-            + '<p class="card-text">Placa do veículo: <b>' + obj[key].placa + '</b></p>'
-            + '<p class="card-text">Descrição: <b>' + obj[key].descricao + '</b></p>'
-            + '<button  class="btn btn-primary " onclick="FecharCliente(' + parseInt(id) + ')">Fechar Conta</button>'
-            + '</div>'
-            + ' <div class="card-footer">' +
-            '<small> Tempo no estacionamento: <b><span class="marcador countdown" style="display:inline-block"> ' + obj[key].entrada + '</span></b> </small >' +
-            '</div >';
-        texto += '</div>'
-    });
 
     document.getElementById("cardContainer").innerHTML = texto;
-    console.log(obj[0])
+
 
 
     //  $("#cardContainer").html(texto);
