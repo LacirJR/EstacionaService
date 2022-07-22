@@ -12,10 +12,10 @@ namespace EstacionaService.Models
     public string Descricao { get; set; }
     public string TipoVeiculo { get; set; }
     public string TempoGasto { get; set; }
-    public DateTime Entrada { get; set; }
-    public DateTime Saida { get; set; }
-    public bool Situacao { get; set; }
-    public decimal ValorAPagar { get; set; }
+    public DateTime? Entrada { get; set; }
+    public DateTime? Saida { get; set; }
+    public bool? Situacao { get; set; }
+    public decimal? ValorAPagar { get; set; }
 
   }
 
