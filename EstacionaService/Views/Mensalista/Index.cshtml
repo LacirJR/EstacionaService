@@ -1,5 +1,5 @@
 @{
-  ViewData["Title"] = "Dashboard - Mensalista";
+    ViewData["Title"] = "Dashboard - Mensalista";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.semanticui.min.css">
@@ -10,53 +10,53 @@
 
 
 
-<h1>Mensalistas Pessoa Física</h1>
-
 <div class="container-fluid">
-  <div class="table-responsive-md">
-    <table id="mensalistas" class="ui  very basic table  ">
-      <thead>
-        <th class="col-md-2 tableTitle">CPF</th>
-        <th class="col-md-4 tableTitle">Nome</th>
-        <th class="cold-md-1 tableTitle">Placa</th>
-        <th class="col-md-1 tableTitle">Veículo</th>
-        <th class="col-md-2 tableTitle">Descrição</th>
-        <th class="col-md-1 tableTitle">Situação</th>
-        <th class="col-md-1 tableTitle"></th>
-      </thead>
-    </table>
-  </div>
+    <h1>Mensalistas</h1>
+
+    <div class="table-responsive-md">
+        <table id="mensalistas" class="ui  very basic table  ">
+            <thead>
+            <th class="col-md-2 tableTitle">CPF/CNPJ</th>
+            <th class="col-md-4 tableTitle">Nome</th>
+            <th class="cold-md-1 tableTitle">Placa</th>
+            <th class="col-md-1 tableTitle">Veículo</th>
+            <th class="col-md-2 tableTitle">Descrição</th>
+            <th class="col-md-1 tableTitle">Situação</th>
+            <th class="col-md-1 tableTitle"></th>
+            </thead>
+        </table>
+    </div>
 </div>
 
 <style>
-  .dataTables_filter input {
-    color: white;
-    border-radius: 40px 10px !important;
-  }
+    .dataTables_filter input {
+      color: white;
+      border-radius: 40px 10px !important;
+    }
 </style>
 
 @section Scripts{
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.semanticui.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.semanticui.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
-
-
-<script>
-  var urlDataTable = '@Url.Action("ListarMensalistasPF", "Mensalista")';
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
 
 
+    <script>
+        var urlDataTable = '@Url.Action("ListarMensalistasPF", "Mensalista")';
 
-</script>
 
-<script type="text/javascript" src="/js/mensalistas.js"></script>
+
+    </script>
+
+    <script type="text/javascript" src="/js/mensalistas.js"></script>
 }
