@@ -11,12 +11,11 @@ namespace EstacionaService.RegrasDeNegocio
     {
       decimal valorAPagar = 0m;
 
-      if (tipoVeiculo != "MOTO")
+      if (tipoVeiculo.ToUpper() != "MOTO")
         valorAPagar = 3m;
 
-      if (tipoVeiculo == "CAMINHÃO")
+      if (tipoVeiculo.ToUpper() == "CAMINHÃO")
         valorAPagar = 6m;
-
 
       if (tempoNoPatio.Ticks <= TimeSpan.Parse("00:15").Ticks)
         valorAPagar += 3.50m;
@@ -28,6 +27,7 @@ namespace EstacionaService.RegrasDeNegocio
         valorAPagar += 14m;
       else
         valorAPagar += ((decimal)tempoNoPatio.TotalHours) * 17.5m;
+
 
       return valorAPagar;
     }

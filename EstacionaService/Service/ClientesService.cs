@@ -31,18 +31,16 @@ namespace EstacionaService.Service
             });
             _sql.SaveChanges();
 
-
         }
 
         public List<Models.ClienteModel> ListarClientes()
         {
-
             var retorno = from cliente in _sql.ClientesAtivosPatios
                           where cliente.Situacao == true
                           orderby cliente.Id descending
                           select new Models.ClienteModel()
                           {
-                              ID = cliente.Id.ToString(),
+                              ID = cliente.Id.ToString().PadLeft(9,'0'),
                               Placa = cliente.Placa,
                               TipoVeiculo = cliente.TipoVeiculo,
                               Descricao = cliente.Descricao,
@@ -50,9 +48,8 @@ namespace EstacionaService.Service
                           };
 
             return retorno.ToList();
-
-
         }
+
 
         public Models.ClienteModel FechamentoCliente(string id)
         {
@@ -80,15 +77,13 @@ namespace EstacionaService.Service
 
             _sql.Pagamentos.Add(new Ef.Pagamento
             {
-                Id = Convert.ToInt32(clienteFechamento.ID),
+                Id = int.Parse(clienteFechamento.ID),
                 Placa = clienteFechamento.Placa,
                 TipoVeiculo = clienteFechamento.TipoVeiculo,
                 TempoGasto = clienteFechamento.TempoGasto,
                 Valor = clienteFechamento.ValorAPagar.ToString(),
                 DataPag = DateTime.Now.ToString("d")
-
             });
-
 
             _sql.ClientesAtivosPatios.Update(new Ef.ClientesAtivosPatio()
             {
@@ -103,11 +98,9 @@ namespace EstacionaService.Service
                 Situacao = false
             });
 
-
             _sql.SaveChanges();
 
             return clienteFechamento;
-
         }
 
         public string Pagamento(decimal valorPago, decimal valorAReceber, string id)
